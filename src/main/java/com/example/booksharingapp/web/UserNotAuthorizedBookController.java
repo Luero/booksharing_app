@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = UserBookController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = UserNotAuthorizedBookController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @RequiredArgsConstructor
-public class UserBookController {
+public class UserNotAuthorizedBookController {
 
-    static final String REST_URL = "/api/user/books-available";
+    static final String REST_URL = "/api/books-available";
 
     @Autowired
     private final BookRepository bookRepository;

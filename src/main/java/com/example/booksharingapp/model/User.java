@@ -35,6 +35,7 @@ public class User extends BaseEntity {
     @Email
     @NotBlank
     @Size(max = 100)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String email;
 
     @Column(name = "password", nullable = false)

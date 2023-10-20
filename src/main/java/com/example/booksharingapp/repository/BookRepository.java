@@ -10,7 +10,14 @@ public interface BookRepository extends BaseRepository<Book> {
     @Query("SELECT b FROM Book b WHERE b.availability=true")
     List<Book> getAvailable();
 
+    @Query("SELECT b FROM Book b LEFT JOIN FETCH b.owner u WHERE b.availability=true")
+    List<Book> getAvailableWithUserDetail();
+
     //TODO make parameter case insensitive, too
     @Query("SELECT b FROM Book b WHERE LOWER(b.name) LIKE %:name%")
     List<Book> findByNameLikeIgnoreCase(String name);
+
+    //TODO Test this one
+    @Query("SELECT b FROM Book b LEFT JOIN FETCH b.owner u WHERE u.id=:id")
+    List<Book> getByUserId(int id);
 }
