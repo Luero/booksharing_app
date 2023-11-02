@@ -45,13 +45,14 @@ public class Book extends BaseEntity {
     private boolean availability;
 
     public Book(Integer id, User owner, String author, String name,
-                int yearOfCurrentEdition, String description, boolean availability) {
+                int yearOfCurrentEdition, String description, String language, boolean availability) {
         super(id);
         this.owner = owner;
         this.author = author;
         this.name = name;
         this.yearOfCurrentEdition = yearOfCurrentEdition;
         this.description = description;
+        this.language = language;
         this.availability = availability;
     }
 }
