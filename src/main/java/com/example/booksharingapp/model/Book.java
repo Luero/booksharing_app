@@ -42,10 +42,10 @@ public class Book extends BaseEntity {
 
     @NotNull
     @Column(name = "availability", nullable = false, columnDefinition = "bool default true")
-    private boolean availability;
+    private boolean available;
 
     public Book(Integer id, User owner, String author, String name,
-                int yearOfCurrentEdition, String description, String language, boolean availability) {
+                int yearOfCurrentEdition, String description, String language, boolean available) {
         super(id);
         this.owner = owner;
         this.author = author;
@@ -53,6 +53,6 @@ public class Book extends BaseEntity {
         this.yearOfCurrentEdition = yearOfCurrentEdition;
         this.description = description;
         this.language = language;
-        this.availability = availability;
+        this.available = available;
     }
 }
