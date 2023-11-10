@@ -36,6 +36,14 @@ public class BorrowLog extends BaseEntity {
     @Column(name = "deadline", nullable = false)
     private LocalDate deadline;
 
+    @NotNull
+    @Column(name = "is_returned", nullable = false, columnDefinition = "bool default false")
+    private boolean isReturned;
+
+    @NotNull
+    @Column(name = "was_expired", nullable = false, columnDefinition = "bool default false")
+    private boolean wasExpired;
+
     public BorrowLog(Integer id, Book book, User owner, User borrower, LocalDate borrowDate, LocalDate deadline) {
         super(id);
         this.book = book;
@@ -43,5 +51,7 @@ public class BorrowLog extends BaseEntity {
         this.borrower = borrower;
         this.borrowDate = borrowDate;
         this.deadline = deadline;
+        this.isReturned = false;
+        this.wasExpired = false;
     }
 }

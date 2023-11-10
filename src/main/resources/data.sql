@@ -17,12 +17,12 @@ VALUES (1, 'L.N. Tolstoy', 'Anna Karenina', 2010, 'A famous romance by L.N. Tols
        (3, 'J.K. Rowling', 'Harry Potter and the Half-Blood Prince', 2007, 'The sixth book about adventures of Harry Potter and his friends', 'Russian', false);
 
 
-INSERT INTO BORROW_LOG (BORROW_DATE, DEADLINE, BOOK_ID, BORROWER_ID, OWNER_ID)
-VALUES ('2023-06-20', '2023-10-20', 3, 2, 1),
-       ('2023-08-20', now(), 4, 3, 1),
-       ('2023-09-20', '2023-11-30', 7, 1, 2),
-       ('2023-10-07', now(), 10, 1, 3),
-       ('2023-10-07', now(), 11, 2, 3);
+INSERT INTO BORROW_LOG (BORROW_DATE, DEADLINE, BOOK_ID, BORROWER_ID, OWNER_ID, IS_RETURNED, WAS_EXPIRED)
+VALUES ('2023-06-20', '2023-10-20', 3, 2, 1, true, false),
+       ('2023-08-20', now(), 4, 3, 1, false, false),
+       ('2023-09-20', '2023-11-30', 7, 1, 2, true, true),
+       ('2023-10-07', now(), 10, 1, 3, true, false),
+       ('2023-10-07', now(), 11, 2, 3, false, false);
 
 
 

@@ -33,13 +33,27 @@ public class UserBorrowLogController {
 
     //TODO replace with AuthUser after adding Security
     @GetMapping("/borrowed")
+    public List<BorrowLogDTOBorrowed> getLogsForBorrowedBooksNotReturned(@RequestParam int userId) {
+        log.info("getInfoAboutBorrowedBooksNotReturnedForUserWithId {}", userId);
+        return repository.getLogsForBorrowedBooksByUserIdNotReturned(userId);
+    }
+
+    //TODO replace with AuthUser after adding Security
+    @GetMapping("/lent")
+    public List<BorrowLogDTOLent> getLogsForLentBooksNotReturned(@RequestParam int userId) {
+        log.info("getInfoAboutLentBooksNotReturnedForUserWithId {}", userId);
+        return repository.getLogsForLentBooksByUserIdNotReturned(userId);
+    }
+
+    //TODO replace with AuthUser after adding Security
+    @GetMapping("/borrowed/history")
     public List<BorrowLogDTOBorrowed> getLogsForBorrowedBooks(@RequestParam int userId) {
         log.info("getInfoAboutBorrowedBooksForUserWithId {}", userId);
         return repository.getLogsForBorrowedBooksByUserId(userId);
     }
 
     //TODO replace with AuthUser after adding Security
-    @GetMapping("/lent")
+    @GetMapping("/lent/history")
     public List<BorrowLogDTOLent> getLogsForLentBooks(@RequestParam int userId) {
         log.info("getInfoAboutLentBooksForUserWithId {}", userId);
         return repository.getLogsForLentBooksByUserId(userId);
