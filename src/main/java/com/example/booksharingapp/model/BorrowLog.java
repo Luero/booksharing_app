@@ -29,7 +29,7 @@ public class BorrowLog extends BaseEntity {
     private User borrower;
 
     @NotNull
-    @Column(name = "borrow_date", nullable = false)
+    @Column(name = "borrow_date", nullable = false, updatable = false)
     private LocalDate borrowDate;
 
     @NotNull

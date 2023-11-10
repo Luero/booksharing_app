@@ -8,6 +8,7 @@ import com.example.booksharingapp.to.BorrowLogDTOLent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,10 +65,17 @@ public class UserBorrowLogController {
     public ResponseEntity<BorrowLog> createWithLocation(@RequestParam int userId, @RequestParam LocalDate deadline,
                                                         @RequestParam int bookId) {
         log.info("create new borrowLog");
-        BorrowLog created = service.save(userId, deadline, bookId);
+        BorrowLog created = service.create(userId, deadline, bookId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PutMapping(value = "/accept-return/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateReturnStatus(@PathVariable int id, @RequestParam boolean isReturned) {
+        log.info("update borrow log with id={} by changing return status", id);
+        service.updateReturnStatus(id, isReturned);
     }
 }

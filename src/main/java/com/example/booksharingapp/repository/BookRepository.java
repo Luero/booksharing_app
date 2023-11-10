@@ -1,9 +1,11 @@
 package com.example.booksharingapp.repository;
 
 import com.example.booksharingapp.model.Book;
+import com.example.booksharingapp.model.User;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends BaseRepository<Book> {
 

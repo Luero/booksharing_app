@@ -26,7 +26,7 @@ public class BorrowLogService {
     private UserRepository userRepository;
 
     @Transactional
-    public BorrowLog save(int userId, LocalDate deadline, int bookId) {
+    public BorrowLog create(int userId, LocalDate deadline, int bookId) {
         Book book = bookRepository.getExisted(bookId);
         if (book.isAvailable()) {
             Optional<User> ownerOptional = userRepository.getUserByBookId(bookId);
@@ -44,5 +44,17 @@ public class BorrowLogService {
         } else {
             throw new IllegalRequestDataException("This book is not available");
         }
+    }
+
+    @Transactional
+    public BorrowLog updateReturnStatus(int id, boolean isReturned) {
+        BorrowLog updated = borrowLogRepository.getExisted(id);
+        updated.setReturned(isReturned);
+
+        Book book = updated.getBook();
+        book.setAvailable(true);
+        bookRepository.save(book);
+
+        return borrowLogRepository.save(updated);
     }
 }
