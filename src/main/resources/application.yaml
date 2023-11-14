@@ -34,6 +34,10 @@ spring:
     # https://stackoverflow.com/questions/11757487/how-to-tell-jackson-to-ignore-a-field-during-serialization-if-its-value-is-null
     default-property-inclusion: non_empty
 
+  cache:
+    cache-names: books-available, books-available-with-contacts
+    caffeine.spec: maximumSize=5000,expireAfterAccess=600s
+
 logging:
   level:
     root: WARN

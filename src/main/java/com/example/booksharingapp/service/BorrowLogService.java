@@ -9,6 +9,8 @@ import com.example.booksharingapp.repository.BookRepository;
 import com.example.booksharingapp.repository.BorrowLogRepository;
 import com.example.booksharingapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +49,12 @@ public class BorrowLogService {
     }
 
     @Transactional
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "books-available", allEntries = true),
+                    @CacheEvict(value = "books-available-with-contacts", allEntries = true)
+            }
+    )
     public BorrowLog updateReturnStatus(int id, boolean isReturned) {
         BorrowLog updated = borrowLogRepository.getExisted(id);
         updated.setReturned(isReturned);
