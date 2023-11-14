@@ -20,7 +20,7 @@ spring:
     tcp: jdbc:h2:tcp://localhost:9092/mem:booksharing
     username: sa
     password:
-  h2.console.enabled: true
+  h2.console.enabled: false
 
 # Jackson Serialization Issue Resolver
   jackson.visibility:
@@ -39,4 +39,6 @@ logging:
     root: WARN
     com.example.booksharingapp: DEBUG
     org.springframework.security.web.FilterChainProxy: DEBUG
+
+springdoc.swagger-ui.path: /
 

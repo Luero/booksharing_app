@@ -1,5 +1,6 @@
 package com.example.booksharingapp.web;
 
+import com.example.booksharingapp.AuthUser;
 import com.example.booksharingapp.model.BorrowLog;
 import com.example.booksharingapp.repository.BorrowLogRepository;
 import com.example.booksharingapp.service.BorrowLogService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,40 +34,36 @@ public class UserBorrowLogController {
     @Autowired
     private final BorrowLogService service;
 
-    //TODO replace with AuthUser after adding Security
     @GetMapping("/borrowed")
-    public List<BorrowLogDTOBorrowed> getLogsForBorrowedBooksNotReturned(@RequestParam int userId) {
-        log.info("getInfoAboutBorrowedBooksNotReturnedForUserWithId {}", userId);
-        return repository.getLogsForBorrowedBooksByUserIdNotReturned(userId);
+    public List<BorrowLogDTOBorrowed> getLogsForBorrowedBooksNotReturned(@AuthenticationPrincipal AuthUser authUser) {
+        log.info("getInfoAboutBorrowedBooksNotReturnedForUserWithId {}", authUser.id());
+        return repository.getLogsForBorrowedBooksByUserIdNotReturned(authUser.id());
     }
 
-    //TODO replace with AuthUser after adding Security
     @GetMapping("/lent")
-    public List<BorrowLogDTOLent> getLogsForLentBooksNotReturned(@RequestParam int userId) {
-        log.info("getInfoAboutLentBooksNotReturnedForUserWithId {}", userId);
-        return repository.getLogsForLentBooksByUserIdNotReturned(userId);
+    public List<BorrowLogDTOLent> getLogsForLentBooksNotReturned(@AuthenticationPrincipal AuthUser authUser) {
+        log.info("getInfoAboutLentBooksNotReturnedForUserWithId {}", authUser.id());
+        return repository.getLogsForLentBooksByUserIdNotReturned(authUser.id());
     }
 
-    //TODO replace with AuthUser after adding Security
     @GetMapping("/borrowed/history")
-    public List<BorrowLogDTOBorrowed> getLogsForBorrowedBooks(@RequestParam int userId) {
-        log.info("getInfoAboutBorrowedBooksForUserWithId {}", userId);
-        return repository.getLogsForBorrowedBooksByUserId(userId);
+    public List<BorrowLogDTOBorrowed> getLogsForBorrowedBooks(@AuthenticationPrincipal AuthUser authUser) {
+        log.info("getInfoAboutBorrowedBooksForUserWithId {}", authUser.id());
+        return repository.getLogsForBorrowedBooksByUserId(authUser.id());
     }
 
-    //TODO replace with AuthUser after adding Security
     @GetMapping("/lent/history")
-    public List<BorrowLogDTOLent> getLogsForLentBooks(@RequestParam int userId) {
-        log.info("getInfoAboutLentBooksForUserWithId {}", userId);
-        return repository.getLogsForLentBooksByUserId(userId);
+    public List<BorrowLogDTOLent> getLogsForLentBooks(@AuthenticationPrincipal AuthUser authUser) {
+        log.info("getInfoAboutLentBooksForUserWithId {}", authUser.id());
+        return repository.getLogsForLentBooksByUserId(authUser.id());
     }
 
-    //TODO replace with AuthUser after adding Security
     @PostMapping(value = "/borrow")
-    public ResponseEntity<BorrowLog> createWithLocation(@RequestParam int userId, @RequestParam LocalDate deadline,
+    public ResponseEntity<BorrowLog> createWithLocation(@AuthenticationPrincipal AuthUser authUser,
+                                                        @RequestParam LocalDate deadline,
                                                         @RequestParam int bookId) {
         log.info("create new borrowLog");
-        BorrowLog created = service.create(userId, deadline, bookId);
+        BorrowLog created = service.create(authUser.id(), deadline, bookId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();

@@ -44,4 +44,9 @@ public class AppConfig {
         objectMapper.addMixIn(ProblemDetail.class, MixIn.class);
         JsonUtil.setMapper(objectMapper);
     }
+/*
+    @Bean
+    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+        return new MvcRequestMatcher.Builder(introspector);
+    }*/
 }
