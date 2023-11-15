@@ -5,6 +5,7 @@ import com.example.booksharingapp.model.Book;
 import com.example.booksharingapp.repository.BookRepository;
 import com.example.booksharingapp.service.BookService;
 import com.example.booksharingapp.to.BookTo;
+import com.example.booksharingapp.util.ToUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.booksharingapp.util.ValidationUtil.checkNew;
@@ -51,11 +53,15 @@ public class UserBookController {
         return bookRepository.findByNameLikeIgnoreCase(name);
     }
 
-    //TODO return BookTo without owner's details
     @GetMapping("/for-auth/my-books")
-    public List<Book> getMyBooks(@AuthenticationPrincipal AuthUser authUser) {
+    public List<BookTo> getMyBooks(@AuthenticationPrincipal AuthUser authUser) {
         log.info("getBooksForUserWithId {}", authUser.id());
-        return bookRepository.getByUserId(authUser.id());
+        List<Book> books = bookRepository.getByUserId(authUser.id());
+        List<BookTo> bookTolist = new ArrayList<>();
+        for (Book book : books) {
+            bookTolist.add(ToUtil.makeToFromBook(book));
+        }
+        return bookTolist;
     }
 
     @GetMapping("/for-auth/available-with-contacts")

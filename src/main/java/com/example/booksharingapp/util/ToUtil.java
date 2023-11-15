@@ -23,6 +23,11 @@ public class ToUtil {
         return book;
     }
 
+    public static BookTo makeToFromBook(Book book) {
+        return new BookTo(book.getId(), book.getAuthor(), book.getName(),
+                book.getYearOfCurrentEdition(), book.getDescription(), book.getLanguage());
+    }
+
     public static User createFromUserTo(UserTo userTo) {
         return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(),
                 userTo.getPassword(), userTo.getContacts());

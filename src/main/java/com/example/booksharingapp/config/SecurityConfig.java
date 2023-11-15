@@ -28,9 +28,6 @@ public class SecurityConfig {
 
     private final UserRepository userRepository;
 
-/*    @Autowired
-    MvcRequestMatcher.Builder mvc;*/
-
     @Bean
     PasswordEncoder passwordEncoder() {
         return PASSWORD_ENCODER;

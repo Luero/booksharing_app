@@ -16,8 +16,8 @@ public interface BookRepository extends BaseRepository<Book> {
     @Cacheable("books-available-with-contacts")
     List<Book> getAvailableWithUserDetail();
 
-    //TODO make parameter case-insensitive, too
-    @Query("SELECT b FROM Book b WHERE LOWER(b.name) LIKE %:name%")
+    @Query("SELECT b FROM Book b WHERE LOWER(b.name) LIKE %:name% " +
+            "OR b.name LIKE %:name% OR UPPER(b.name) LIKE %:name%")
     List<Book> findByNameLikeIgnoreCase(String name);
 
     @Query("SELECT b FROM Book b LEFT JOIN FETCH b.owner u WHERE u.id=:id")

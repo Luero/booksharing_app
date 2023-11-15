@@ -47,7 +47,6 @@ public class BorrowLogService {
             throw new IllegalRequestDataException("This book is not available");
         }
     }
-
     @Transactional
     @Caching(
             evict = {
@@ -58,11 +57,9 @@ public class BorrowLogService {
     public BorrowLog updateReturnStatus(int id, boolean isReturned) {
         BorrowLog updated = borrowLogRepository.getExisted(id);
         updated.setReturned(isReturned);
-
         Book book = updated.getBook();
         book.setAvailable(true);
         bookRepository.save(book);
-
         return borrowLogRepository.save(updated);
     }
 }

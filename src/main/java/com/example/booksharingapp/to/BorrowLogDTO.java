@@ -15,8 +15,6 @@ import java.time.LocalDate;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class BorrowLogDTO implements HasId {
 
-//TODO think about necessity of HasId here
-
     @Schema(accessMode = Schema.AccessMode.READ_ONLY) // https://stackoverflow.com/a/28025008/548473
     protected Integer id;
 
