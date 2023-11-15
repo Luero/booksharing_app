@@ -50,9 +50,10 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .requestMatchers("/api/user/books/for-auth/**",
-                        "/api/user/borrow-logs/**").authenticated()
+                        "/api/user/borrow-logs/**", "/api/profile").authenticated()
                 .requestMatchers("/", "/v3/api-docs/**", "/swagger-ui.html",
-                        "/swagger-ui/**", "/api/user/books/available", "/api/user/books/find-by-{name}").permitAll()
+                        "/swagger-ui/**", "/api/user/books/available",
+                        "/api/user/books/find-by-{name}", "/api/profile/register").permitAll()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();

@@ -1,7 +1,9 @@
 package com.example.booksharingapp.util;
 
 import com.example.booksharingapp.model.Book;
+import com.example.booksharingapp.model.User;
 import com.example.booksharingapp.to.BookTo;
+import com.example.booksharingapp.to.UserTo;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -19,5 +21,18 @@ public class ToUtil {
         book.setYearOfCurrentEdition(bookTo.getYearOfCurrentEdition());
         book.setLanguage(bookTo.getLanguage());
         return book;
+    }
+
+    public static User createFromUserTo(UserTo userTo) {
+        return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(),
+                userTo.getPassword(), userTo.getContacts());
+    }
+
+    public static User updateFromUserTo(User user, UserTo userTo) {
+        user.setName(userTo.getName());
+        user.setEmail(userTo.getEmail().toLowerCase());
+        user.setPassword(userTo.getPassword());
+        user.setContacts(userTo.getContacts());
+        return user;
     }
 }
