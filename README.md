@@ -62,7 +62,30 @@ Credentials for test:
   - BookService (a class that contains logic for saving/updating books)
   - BorrowLogService (a class that contains logic for creating and updating borrow logs, e.g. checks availability of the book requested by the user, changes availability status of the book if it is borrowed)
   - UserService (a class that contains logic for deleting user's profile: it checks whether the user has returned all books before deleting)
-* 
+* TO (utility package where TOs and DTOs are contained)
+  - BookTo (needed to transfer information about available books without info about an owner, e.g. when the user wants to check his/her own books)
+  - BorrowLogDTO (needed to transfer information about borrow log without transfering all details for connected entities; this is a parent class for BorrowLogDTOBorrowed and BorrowLogDTOLent)
+  - BorrowLogDTOBorrowed (omits information about the borrower, since it is the user who requested this info)
+  - BorrowLogDTOLent (omits information about the owner, since it is the user who requested this info)
+  - UserTo (needed to transfer to the controller only data that could be changed by the user)
+* Util (package with utility classes)
+  - JsonUtil (an utility class which creates JSON representation of entities)
+  - ToUtil (an utility class which makes TOs from entities and vise versa)
+  - ValidationUtil (an utility class which contains some validation methods)
+* Web (package for controllers)
+  - ProfileController (allows users to register in the app and then control data in their profiles)
+  - UserBookController (allows users to retrieve info about books and deal with books)
+  - UserBorrowLogController (allows users to borrow books, accept returns, look at the lists of borrowed and lent books, including their borrowing / lent history)
+  Particular endpoints are available in Swagger documentation.
+* The app also has some additioinal files
+  - AuthUser (a class that is necessary to simplify security checks and work for authorised users)
+  - HasId (an interface that is used in all entities, TOs and DTOs)
+  - BookSharingAppApplication (contains main method to launch the app)
+* Resources package
+  - application.yaml (this file contains general settings of the app and frameworks used within the app)
+  - data.sql (generates tables in the database with test data, updates the information about deadline expiration)
+
+  
 
 
 
