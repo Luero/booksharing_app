@@ -22,8 +22,12 @@ import org.springframework.context.annotation.Configuration;
                 title = "REST API documentation",
                 version = "1.0",
                 description = """
-                        Application for booksharing among students, family members, other relatively small groups of people
+                        Application for book-sharing among students, family members, other relatively small groups of people
                         (<a href='https://github.com/Luero/booksharing_app'>Luero</a>)
+                        <p><b>Credentials for test:</b><br>
+                        - ksu@yandex.ru / ksu
+                        - kate@mail.ru / kate
+                        - victor@gmail.com / victor</p>
                         """,
                 contact = @Contact(name = "Ksenia Erofeeva", email = "kseniapodguzova@gmail.com")
         ),
